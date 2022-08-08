@@ -48,7 +48,7 @@ Este es el layout principal, a partir de este layout o plantilla se muestran el 
 <div class="col-md-12">
 <br>
 <hr>
-<p class="text-muted text-center">Powered by <a href="http://evilnapsis.com/" target="_blank">Evilnapsis</a> &copy; 2018</p>
+<p class="text-muted text-center">Powered by <a href="http://evilnapsis.com/" target="_blank">Evilnapsis</a> &copy; 2022</p>
 </div>
 </div>
 </div>

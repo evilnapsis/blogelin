@@ -150,9 +150,9 @@ $(document).ready(function(){
 
         <footer class="main-footer">
         <div class="pull-right hidden-xs">
-          <b>Version</b> v1.1
+          <b>Version</b> v2.1
         </div>
-        <strong>Copyright &copy; 2018 <a href="http://evilnapsis.com/company/" target="_blank">Evilnapsis</a></strong>
+        <strong>Copyright &copy; 2022 <a href="http://evilnapsis.com/company/" target="_blank">Evilnapsis</a></strong>
       </footer>
       <?php else:?>
         <?php if(isset($_GET["view"]) && $_GET["view"]=="pacientlogin"):?>

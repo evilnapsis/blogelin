@@ -3,7 +3,7 @@ class PostData {
 	public static $tablename = "post";
 
 
-	public function PostData(){
+	public function __construct(){
 		$this->name = "";
 		$this->lastname = "";
 		$this->email = "";
