@@ -3,12 +3,20 @@ class CommentData {
 	public static $tablename = "comment";
 
 
+	public $id;
+	public $name;
+	public $comment;
+	public $email;
+	public $post_id;
+	public $created_at;
+	public $status;
+
 	public function __construct(){
 		$this->name = "";
-		$this->lastname = "";
+		$this->comment = "";
 		$this->email = "";
-		$this->password = "";
 		$this->created_at = "NOW()";
+		$this->status = 1;
 	}
 
 	public function add(){
@@ -28,7 +36,7 @@ class CommentData {
 
 // partiendo de que ya tenemos creado un objecto CommentData previamente utilizamos el contexto
 	public function update(){
-		$sql = "update ".self::$tablename." set code=\"$this->code\",name=\"$this->name\",ruc=\"$this->ruc\",phone=\"$this->phone\",email=\"$this->email\" where id=$this->id";
+		$sql = "update ".self::$tablename." set name=\"$this->name\",comment=\"$this->comment\",email=\"$this->email\",status=\"$this->status\" where id=$this->id";
 		Executor::doit($sql);
 	}
 
@@ -68,6 +76,19 @@ class CommentData {
 		return Model::many($query[0],new CommentData());
 	}
 
+
+	public static function getLatest($limit=10){
+		$sql = "select * from ".self::$tablename." order by created_at desc limit $limit";
+		$query = Executor::doit($sql);
+		return Model::many($query[0],new CommentData());
+	}
+
+	public static function count(){
+		$sql = "select count(*) as c from ".self::$tablename;
+		$query = Executor::doit($sql);
+		$r = $query[0]->fetch_array();
+		return $r['c'];
+	}
 
 }
 

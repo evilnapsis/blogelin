@@ -3,12 +3,22 @@ class PostData {
 	public static $tablename = "post";
 
 
+	public $id;
+	public $title;
+	public $brief;
+	public $content;
+	public $image;
+	public $created_at;
+	public $status;
+	public $category_id;
+
 	public function __construct(){
-		$this->name = "";
-		$this->lastname = "";
-		$this->email = "";
-		$this->password = "";
+		$this->title = "";
+		$this->brief = "";
+		$this->content = "";
+		$this->image = "";
 		$this->created_at = "NOW()";
+		$this->status = 1;
 	}
 
 	public function add(){
@@ -52,11 +62,24 @@ class PostData {
 
 	}
 	public static function getLike($q){
-		$sql = "select * from ".self::$tablename." where name like '%$q%'";
+		$sql = "select * from ".self::$tablename." where title like '%$q%' or content like '%$q%'";
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new PostData());
 	}
 
+
+	public static function getLatest($limit=10){
+		$sql = "select * from ".self::$tablename." order by created_at desc limit $limit";
+		$query = Executor::doit($sql);
+		return Model::many($query[0],new PostData());
+	}
+
+	public static function count(){
+		$sql = "select count(*) as c from ".self::$tablename;
+		$query = Executor::doit($sql);
+		$r = $query[0]->fetch_array();
+		return $r['c'];
+	}
 
 }
 

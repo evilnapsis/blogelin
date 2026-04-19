@@ -3,12 +3,11 @@ class CategoryData {
 	public static $tablename = "category";
 
 
+	public $id;
+	public $name;
+
 	public function __construct(){
 		$this->name = "";
-		$this->lastname = "";
-		$this->email = "";
-		$this->password = "";
-		$this->created_at = "NOW()";
 	}
 
 	public function add(){
@@ -51,6 +50,13 @@ class CategoryData {
 		return Model::many($query[0],new CategoryData());
 	}
 
+
+	public static function count(){
+		$sql = "select count(*) as c from ".self::$tablename;
+		$query = Executor::doit($sql);
+		$r = $query[0]->fetch_array();
+		return $r['c'];
+	}
 
 }
 

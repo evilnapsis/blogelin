@@ -2,12 +2,26 @@
 class UserData {
 	public static $tablename = "user";
 
+	public $id;
+	public $name;
+	public $lastname;
+	public $username;
+	public $email;
+	public $password;
+	public $image;
+	public $status;
+	public $kind;
+	public $created_at;
+
 	public function __construct(){
 		$this->name = "";
 		$this->lastname = "";
 		$this->username = "";
+		$this->email = "";
 		$this->password = "";
-		$this->is_active = "0";
+		$this->image = "";
+		$this->status = 1;
+		$this->kind = 1;
 		$this->created_at = "NOW()";
 	}
 
@@ -53,11 +67,18 @@ class UserData {
 
 
 	public static function getLike($q){
-		$sql = "select * from ".self::$tablename." where title like '%$q%' or content like '%$q%'";
+		$sql = "select * from ".self::$tablename." where name like '%$q%' or lastname like '%$q%' or email like '%$q%'";
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new UserData());
 	}
 
+
+	public static function count(){
+		$sql = "select count(*) as c from ".self::$tablename;
+		$query = Executor::doit($sql);
+		$r = $query[0]->fetch_array();
+		return $r['c'];
+	}
 
 }
 
