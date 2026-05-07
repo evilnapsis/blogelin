@@ -1,4 +1,9 @@
 <?php
+/* 
+@author: evilnapsis
+@brief: Blogelin Sistema de Blog de noticias, creado con php y mysql
+@updated 2026
+*/
 $debug= false;
 if($debug){
 ini_set('display_errors', 1);

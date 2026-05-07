@@ -1,4 +1,4 @@
-Instrucciones de Instalacion 
+Instrucciones de Instalacion Blogelin v2.0
 
 1.- Copiar y descomprimir el archivo en la carpeta c:\xampp\htdocs, al final tendras una carpeta llamada “blogelin”, a la cual accederas desde el navegador como -> http://127.0.0.1/blogelin
 2.- Buscar el archivo schema.sql en blogelin/schema.sql, una vez localizado copiar y pegar el contenido en una ventana de MySQL, PHPMyAdmin o MySQL WorkBench

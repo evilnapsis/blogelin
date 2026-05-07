@@ -6,9 +6,10 @@
 // @brief obtiene las configuraciones, muestra y carga los contenidos necesarios.
 
 class Core {
-	public static $root = "";
 
 	public static $debug_sql = false;
+	public static $user;
+	public static $contrato_agua_start=10000;
 
 	public static function includeCSS(){
 		$path = "res/css/";
@@ -52,6 +53,11 @@ class Core {
 		closedir($handle);
 		}
 
+	}
+
+	public static function clean($str){
+		$con = Database::getCon();
+		return mysqli_real_escape_string($con, strip_tags($str));
 	}
 
 }

@@ -1,25 +1,29 @@
 <?php
-/**
-* @author evilnapsis
-**/
+/* 
+@author: evilnapsis
+@brief: Blogelin Sistema de Blog de noticias, creado con php y mysql
+@updated 2026
+*/
+$debug= true;
+date_default_timezone_set('America/Mexico_City');
 
-define("ROOT", dirname(__FILE__));
-
-$debug= false;
 if($debug){
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+}else{
+error_reporting(0);
+
 }
 
-include "core/autoload.php";
 
+include "core/autoload.php";
 ob_start();
 session_start();
-Core::$root="";
 
 // si quieres que se muestre las consultas SQL debes decomentar la siguiente linea
 // Core::$debug_sql = true;
+
 
 $lb = new Lb();
 $lb->start();

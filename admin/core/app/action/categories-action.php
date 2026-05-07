@@ -1,17 +1,18 @@
 <?php
 
 if(isset($_GET["opt"]) && $_GET["opt"]=="add"){
-
 	$user = new CategoryData();
-	$user->name = $_POST["name"];
+	$user->name = Core::clean($_POST["name"]);
 	$user->add();
-	Core::redir("./?view=categories");
+	ob_clean();
+	echo "success";
 }
 else if(isset($_GET["opt"]) && $_GET["opt"]=="update"){
-	$user = CategoryData::getById($_POST["user_id"]);
-	$user->name = $_POST["name"];
+	$user = CategoryData::getById($_POST["id"]);
+	$user->name = Core::clean($_POST["name"]);
 	$user->update();
-	Core::redir("./?view=categories");
+	ob_clean();
+	echo "success";
 }
 else if(isset($_GET["opt"]) && $_GET["opt"]=="del"){
 	$category = CategoryData::getById($_GET["id"]);

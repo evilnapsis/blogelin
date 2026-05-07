@@ -1,6 +1,7 @@
 /* 
 @author: evilnapsis
-@brief: updated 2018 
+@brief: Blogelin Sistema de Blog de noticias, creado con php y mysql
+@updated 2026
 */
 create database blogelin;
 use blogelin;
@@ -19,7 +20,7 @@ create table post(
 	image varchar(255),
 	created_at datetime,
 	status int default 1,
-	category_id int not null,
+	category_id int,
 	foreign key (category_id) references category(id)
 );
 

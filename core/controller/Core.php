@@ -53,6 +53,11 @@ class Core {
 
 	}
 
+	public static function clean($str){
+		$con = Database::getCon();
+		return mysqli_real_escape_string($con, strip_tags($str));
+	}
+
 }
 
 

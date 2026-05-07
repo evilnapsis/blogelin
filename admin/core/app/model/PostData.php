@@ -22,8 +22,9 @@ class PostData {
 	}
 
 	public function add(){
+		$category_id = $this->category_id!="" ? $this->category_id : "NULL";
 		$sql = "insert into ".self::$tablename." (title,brief,content,category_id,image,created_at) ";
-		$sql .= "value (\"$this->title\",\"$this->brief\",\"$this->content\",$this->category_id,\"$this->image\",NOW())";
+		$sql .= "value (\"$this->title\",\"$this->brief\",\"$this->content\",$category_id,\"$this->image\",NOW())";
 		return Executor::doit($sql);
 	}
 
@@ -38,7 +39,8 @@ class PostData {
 
 // partiendo de que ya tenemos creado un objecto PostData previamente utilizamos el contexto
 	public function update(){
-		$sql = "update ".self::$tablename." set title=\"$this->title\",brief=\"$this->brief\",content=\"$this->content\",image=\"$this->image\",category_id=\"$this->category_id\",status=$this->status where id=$this->id";
+		$category_id = $this->category_id!="" ? $this->category_id : "NULL";
+		$sql = "update ".self::$tablename." set title=\"$this->title\",brief=\"$this->brief\",content=\"$this->content\",image=\"$this->image\",category_id=$category_id,status=$this->status where id=$this->id";
 		Executor::doit($sql);
 	}
 
@@ -55,18 +57,23 @@ class PostData {
 
 	}
 	
-		public static function getAllActive(){
-		$sql = "select * from ".self::$tablename." where status=1";
+	public static function getAllActive(){
+		$sql = "select * from ".self::$tablename." where status=1 order by created_at desc";
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new PostData());
-
 	}
+
+	public static function getAllActivePaged($offset, $limit){
+		$sql = "select * from ".self::$tablename." where status=1 order by created_at desc limit $limit offset $offset";
+		$query = Executor::doit($sql);
+		return Model::many($query[0],new PostData());
+	}
+
 	public static function getLike($q){
-		$sql = "select * from ".self::$tablename." where title like '%$q%' or content like '%$q%'";
+		$sql = "select * from ".self::$tablename." where (title like '%$q%' or content like '%$q%') and status=1 order by created_at desc limit 10";
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new PostData());
 	}
-
 
 	public static function getLatest($limit=10){
 		$sql = "select * from ".self::$tablename." order by created_at desc limit $limit";
@@ -74,8 +81,21 @@ class PostData {
 		return Model::many($query[0],new PostData());
 	}
 
+	public static function getLatestActive($limit=10){
+		$sql = "select * from ".self::$tablename." where status=1 order by created_at desc limit $limit";
+		$query = Executor::doit($sql);
+		return Model::many($query[0],new PostData());
+	}
+
 	public static function count(){
 		$sql = "select count(*) as c from ".self::$tablename;
+		$query = Executor::doit($sql);
+		$r = $query[0]->fetch_array();
+		return $r['c'];
+	}
+
+	public static function countActive(){
+		$sql = "select count(*) as c from ".self::$tablename." where status=1";
 		$query = Executor::doit($sql);
 		$r = $query[0]->fetch_array();
 		return $r['c'];
